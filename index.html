@@ -1,75 +1,166 @@
-<!DOCTYPE html>
+from zipfile import ZipFile
+import os
+
+# Recreate the directory
+html_dir = "/mnt/data/denys-handyman-landing"
+os.makedirs(html_dir, exist_ok=True)
+
+# Save the HTML content again
+html_path = os.path.join(html_dir, "index.html")
+html_content = '''<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Denys Expert Handyman in Miami</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f7f7f7; color: #333; }
-    header { background-color: #0b3d91; color: #fff; padding: 20px; text-align: center; }
-    header h1 { margin: 0; font-size: 2em; }
-    .container { max-width: 960px; margin: 0 auto; padding: 20px; background: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    section { margin-bottom: 30px; }
-    h2 { border-bottom: 2px solid #0b3d91; padding-bottom: 5px; }
-    ul { padding-left: 20px; }
-    .review, .contact-info { background: #f1f1f1; padding: 15px; border-radius: 5px; }
-    .contact-info a { color: #0b3d91; text-decoration: none; font-weight: bold; }
-    .hero-image { width: 100%; max-height: 400px; object-fit: cover; border-radius: 5px; }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Denys Expert Handyman in Miami</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #f7f7f7, #e0e7ff);
+      color: #333;
+    }
+    header {
+      background-color: #0b3d91;
+      color: #fff;
+      padding: 30px 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+    }
+    .container {
+      max-width: 960px;
+      margin: 30px auto;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+    section {
+      margin-bottom: 40px;
+    }
+    h2 {
+      border-left: 6px solid #0b3d91;
+      padding-left: 10px;
+      color: #0b3d91;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 8px;
+    }
+    .review, .contact-info {
+      background: #f9f9f9;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .contact-info a {
+      color: #0b3d91;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .hero-image, .extra-image {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .contact-buttons {
+      margin-top: 15px;
+    }
+    .contact-buttons a {
+      display: inline-block;
+      margin-right: 10px;
+      padding: 10px 20px;
+      background: #0b3d91;
+      color: #fff;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+    .contact-buttons a:hover {
+      background: #092c70;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Denys Expert Handyman in Miami</h1>
-    <p>Reliable • Skilled • Professional</p>
-  </header>
-  <div class="container">
-    <img class="hero-image" src="https://images.unsplash.com/photo-1602727982745-24d6f05db5d1" alt="Handyman at work">
+  <header>
+    <h1>Denys Expert Handyman in Miami</h1>
+    <p>Reliable • Skilled • Professional</p>
+  </header>
+  <div class="container">
+    <img class="hero-image" src="https://images.unsplash.com/photo-1602727982745-24d6f05db5d1" alt="Handyman at work">
+    <img class="extra-image" src="https://images.unsplash.com/photo-1604014237800-1b12e76fcd90" alt="Toolbox and gloves">
+    <img class="extra-image" src="https://images.unsplash.com/photo-1597091444609-f7a6d10b8c41" alt="Assembling furniture">
 
-    <section>
-      <h2>About Me</h2>
-      <p>Welcome! My name is Denys, and I provide expert handyman services throughout Miami. With years of experience, a keen eye for detail, and a passion for doing things right the first time, I’m here to help you with all your repair and installation needs.</p>
-    </section>
+    <section>
+      <h2>About Me</h2>
+      <p>Welcome! My name is Denys, and I provide expert handyman services throughout Miami. With years of experience, a keen eye for detail, and a passion for doing things right the first time, I’m here to help you with all your repair and installation needs.</p>
+    </section>
 
-    <section>
-      <h2>Services</h2>
-      <ul>
-        <li>TV Mounting & Setup</li>
-        <li>Furniture Assembly</li>
-        <li>Door Installation & Repair</li>
-        <li>Drywall Patching</li>
-        <li>Light Electrical Work</li>
-        <li>General Home Repairs</li>
-      </ul>
-    </section>
+    <section>
+      <h2>Services</h2>
+      <ul>
+        <li>TV Mounting & Setup</li>
+        <li>Furniture Assembly</li>
+        <li>Door Installation & Repair</li>
+        <li>Drywall Patching</li>
+        <li>Light Electrical Work</li>
+        <li>General Home Repairs</li>
+      </ul>
+    </section>
 
-    <section>
-      <h2>What Clients Say</h2>
-      <div class="review">
-        <p>⭐⭐⭐⭐⭐<br>
-        “Denys did a great job mounting our TV and fixing a loose door. Punctual, polite, and the work was excellent. Highly recommend!”<br>
-        — Maria G., Miami</p>
-      </div>
-      <div class="review">
-        <p>⭐⭐⭐⭐⭐<br>
-        “Quick and professional! Fixed everything perfectly. Will hire again.”<br>
-        — James T., North Miami Beach</p>
-      </div>
-      <div class="review">
-        <p>⭐⭐⭐⭐⭐<br>
-        “Very reliable and neat. Assembled my furniture fast and carefully. Thank you!”<br>
-        — Sarah L., Aventura</p>
-      </div>
-    </section>
+    <section>
+      <h2>What Clients Say</h2>
+      <div class="review">
+        <p>⭐⭐⭐⭐⭐<br>
+        “Denys did a great job mounting our TV and fixing a loose door. Punctual, polite, and the work was excellent. Highly recommend!”<br>
+        — Maria G., Miami</p>
+      </div>
+      <div class="review">
+        <p>⭐⭐⭐⭐⭐<br>
+        “Quick and professional! Fixed everything perfectly. Will hire again.”<br>
+        — James T., North Miami Beach</p>
+      </div>
+      <div class="review">
+        <p>⭐⭐⭐⭐⭐<br>
+        “Very reliable and neat. Assembled my furniture fast and carefully. Thank you!”<br>
+        — Sarah L., Aventura</p>
+      </div>
+    </section>
 
-    <section>
-      <h2>Contact</h2>
-      <div class="contact-info">
-        <p><strong>Phone:</strong> <a href="tel:7868241713">786-824-1713</a></p>
-        <p><strong>Email:</strong> <a href="mailto:novbli33@gmail.com">novbli33@gmail.com</a></p>
-        <p><strong>Location:</strong> Miami, FL 33181</p>
-        <p><strong>Additional Contact:</strong> <a href="tel:3057133715">305-713-3715</a></p>
-      </div>
-    </section>
-  </div>
+    <section>
+      <h2>Contact</h2>
+      <div class="contact-info">
+        <p><strong>Phone:</strong> <a href="tel:7868241713">786-824-1713</a></p>
+        <p><strong>Email:</strong> <a href="mailto:novbli33@gmail.com">novbli33@gmail.com</a></p>
+        <p><strong>Location:</strong> Miami, FL 33181</p>
+        <p><strong>Additional Contact:</strong> <a href="tel:3057133715">305-713-3715</a></p>
+        <div class="contact-buttons">
+          <a href="tel:7868241713">Call Now</a>
+          <a href="mailto:novbli33@gmail.com">Email Me</a>
+        </div>
+      </div>
+    </section>
+  </div>
 </body>
 </html>
+'''
+
+with open(html_path, "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+# Create the ZIP archive
+zip_path = "/mnt/data/denys-handyman-landing.zip"
+with ZipFile(zip_path, 'w') as zipf:
+    zipf.write(html_path, arcname="index.html")
+
+zip_path
